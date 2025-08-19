@@ -3,6 +3,7 @@ import FriendRequestSkeleton from "./skeleton/FriendRequestSkeleton";
 import { useGetAllFriendRequestQuery } from "../redux/api/features/friendRequest/friendRequestApi";
 
 type RequestUser = {
+    sender: any;
     _id: string;
     name: string;
     email?: string;

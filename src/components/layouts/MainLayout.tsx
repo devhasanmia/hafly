@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { 
-  Heart, 
-  MessageCircle, 
-  Share2, 
-  Plus, 
-  Search, 
-  Bell, 
-  Settings, 
-  Home, 
-  User, 
-  Users, 
-  Bookmark, 
+import {
+  Heart,
+  MessageCircle,
+  Share2,
+  Plus,
+  Search,
+  Bell,
+  Settings,
+  Home,
+  User,
+  Users,
+  Bookmark,
   TrendingUp,
   MoreHorizontal,
   Camera,
@@ -26,6 +26,7 @@ import {
 import Suggestions from '../Suggestions';
 import ProfileCard from '../ProfileCard';
 import { FriendRequest } from '../FriendRequest';
+import Header from '../Header';
 
 interface Post {
   id: number;
@@ -103,8 +104,8 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const handleLike = (postId: number) => {
-    setPosts(posts.map(post => 
-      post.id === postId 
+    setPosts(posts.map(post =>
+      post.id === postId
         ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
         : post
     ));
@@ -131,93 +132,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                SocialHub
-              </h1>
-              <div className="hidden md:flex space-x-6">
-                <button className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors">
-                  <Home size={20} />
-                  <span className="font-medium">Home</span>
-                </button>
-                <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-700 transition-colors">
-                  <Users size={20} />
-                  <span className="font-medium">Friends</span>
-                </button>
-                <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-700 transition-colors">
-                  <Bookmark size={20} />
-                  <span className="font-medium">Saved</span>
-                </button>
-              </div>
-            </div>
-            
-            <div className="flex-1 max-w-md mx-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search posts, people..."
-                  className="w-full pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                />
-              </div>
-            </div>
 
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="relative p-2 text-gray-600 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
-              >
-                <Bell size={20} />
-                <span className="absolute top-0 right-0 h-3 w-3 bg-red-500 rounded-full"></span>
-              </button>
-              <button className="p-2 text-gray-600 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
-                <Settings size={20} />
-              </button>
-              <img 
-                src="https://i.pravatar.cc/40?img=0" 
-                alt="Profile" 
-                className="h-10 w-10 rounded-full border-2 border-blue-500 cursor-pointer hover:scale-105 transition-transform"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Notifications Dropdown */}
-        {showNotifications && (
-          <div className="absolute right-4 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50">
-            <div className="p-4">
-              <h3 className="font-semibold text-gray-900 mb-3">Notifications</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                  <img src="https://i.pravatar.cc/40?img=2" className="h-8 w-8 rounded-full" />
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-900">Alex liked your post</p>
-                    <p className="text-xs text-gray-500">5 minutes ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                  <img src="https://i.pravatar.cc/40?img=4" className="h-8 w-8 rounded-full" />
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-900">Jordan commented on your photo</p>
-                    <p className="text-xs text-gray-500">15 minutes ago</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                  <img src="https://i.pravatar.cc/40?img=6" className="h-8 w-8 rounded-full" />
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-900">Taylor started following you</p>
-                    <p className="text-xs text-gray-500">1 hour ago</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </header>
-
+      <Header />
       <div className="container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Left Sidebar */}
         <aside className="hidden lg:block lg:col-span-1 space-y-6">
@@ -236,8 +152,8 @@ function App() {
               {stories.map((story) => (
                 <div key={story.id} className="flex flex-col items-center space-y-2 min-w-max cursor-pointer group">
                   <div className={`relative ${story.id === 1 ? 'bg-gradient-to-tr from-blue-500 to-purple-600' : story.viewed ? 'bg-gray-300' : 'bg-gradient-to-tr from-pink-500 to-orange-500'} p-0.5 rounded-full group-hover:scale-105 transition-transform`}>
-                    <img 
-                      src={story.avatar} 
+                    <img
+                      src={story.avatar}
                       alt={story.name}
                       className="h-16 w-16 rounded-full border-2 border-white"
                     />
@@ -282,7 +198,7 @@ function App() {
                       <span className="hidden sm:inline">Feeling</span>
                     </button>
                   </div>
-                  <button 
+                  <button
                     onClick={handlePostSubmit}
                     disabled={!newPost.trim()}
                     className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-xl font-medium hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center space-x-2"
@@ -333,9 +249,9 @@ function App() {
               {/* Post Image */}
               {post.image && (
                 <div className="mx-6 mb-4">
-                  <img 
-                    src={post.image} 
-                    alt="Post content" 
+                  <img
+                    src={post.image}
+                    alt="Post content"
                     className="w-full rounded-xl object-cover cursor-pointer hover:opacity-95 transition-opacity"
                   />
                 </div>
@@ -362,13 +278,12 @@ function App() {
               {/* Post Actions */}
               <div className="px-6 py-3 border-t border-gray-100">
                 <div className="flex items-center justify-around">
-                  <button 
+                  <button
                     onClick={() => handleLike(post.id)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${
-                      post.liked 
-                        ? 'text-blue-600 bg-blue-50' 
-                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                    }`}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${post.liked
+                      ? 'text-blue-600 bg-blue-50'
+                      : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                      }`}
                   >
                     <ThumbsUp size={18} className={post.liked ? 'fill-current' : ''} />
                     <span className="font-medium">Like</span>
@@ -396,12 +311,12 @@ function App() {
               <span className="text-sm text-green-500 font-medium">8 online</span>
             </div>
             <div className="space-y-3">
-              {[1,2,3,4,5].map((friend) => (
+              {[1, 2, 3, 4, 5].map((friend) => (
                 <div key={friend} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors">
                   <div className="relative">
-                    <img 
-                      src={`https://i.pravatar.cc/40?img=${friend + 15}`} 
-                      alt="Friend" 
+                    <img
+                      src={`https://i.pravatar.cc/40?img=${friend + 15}`}
+                      alt="Friend"
                       className="h-10 w-10 rounded-full border-2 border-transparent hover:border-blue-500 transition-colors"
                     />
                     <div className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 border-2 border-white rounded-full"></div>
