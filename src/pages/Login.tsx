@@ -1,17 +1,36 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLoginMutation } from "../redux/api/features/auth/authApi";
+import { toast } from "sonner";
+import { setUser } from "../redux/api/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
+
+type LoginFormInputs = {
+  email: string;
+  password: string;
+  remember?: boolean;
+};
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm();
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const onSubmit = async (data: any) => {
-    console.log("Login data:", data);
+  const [login, { isLoading }] = useLoginMutation();
+const dispatch = useAppDispatch()
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      const result = await login(data).unwrap();
+      toast.success(result?.data?.message || "Login successful");
+      dispatch(setUser(result?.data))
+      console.log(result.data.data)
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error?.data?.message || "Login failed");
+    }
   };
 
   return (
@@ -45,14 +64,14 @@ export default function Login() {
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
-                    value: /[^\s@]+@[^\s@]+\.[^\s@]+/,
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Enter a valid email",
                   },
                 })}
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.email.message as string}
+                  {errors.email.message}
                 </p>
               )}
             </div>
@@ -65,11 +84,7 @@ export default function Login() {
               >
                 Password
               </label>
-              <div
-                className={`relative ${
-                  errors.password ? "has-[input]:ring-red-100" : ""
-                }`}
-              >
+              <div className="relative">
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -96,7 +111,7 @@ export default function Login() {
               </div>
               {errors.password && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.password.message as string}
+                  {errors.password.message}
                 </p>
               )}
             </div>
@@ -118,10 +133,10 @@ export default function Login() {
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isLoading}
               className="w-full rounded-xl bg-indigo-600 text-white py-2.5 font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Signing in…" : "Sign in"}
+              {isLoading ? "Signing in…" : "Sign in"}
             </button>
           </form>
 
