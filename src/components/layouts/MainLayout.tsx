@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Heart,
   MessageCircle,
@@ -21,12 +21,12 @@ import {
   Eye,
   Star,
   MapPin,
-  Calendar
-} from 'lucide-react';
-import Suggestions from '../Suggestions';
-import ProfileCard from '../ProfileCard';
-import { FriendRequest } from '../FriendRequest';
-import Header from '../Header';
+  Calendar,
+} from "lucide-react";
+import Suggestions from "../Suggestions";
+import ProfileCard from "../ProfileCard";
+import { FriendRequest } from "../FriendRequest";
+import Header from "../Header";
 
 interface Post {
   id: number;
@@ -56,59 +56,101 @@ function App() {
       author: "Sarah Johnson",
       avatar: "https://i.pravatar.cc/100?img=1",
       time: "2h",
-      content: "Just finished an amazing hike in the mountains! The view was absolutely breathtaking. Nature never fails to inspire me. 🏔️",
-      image: "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop",
+      content:
+        "Just finished an amazing hike in the mountains! The view was absolutely breathtaking. Nature never fails to inspire me. 🏔️",
+      image:
+        "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop",
       likes: 124,
       comments: 28,
       shares: 12,
       liked: false,
-      location: "Rocky Mountains"
+      location: "Rocky Mountains",
     },
     {
       id: 2,
       author: "Mike Chen",
       avatar: "https://i.pravatar.cc/100?img=3",
       time: "4h",
-      content: "Excited to share my latest photography project! Spent weeks capturing the beauty of urban architecture. What do you think?",
-      image: "https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop",
+      content:
+        "Excited to share my latest photography project! Spent weeks capturing the beauty of urban architecture. What do you think?",
+      image:
+        "https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop",
       likes: 89,
       comments: 15,
       shares: 7,
       liked: true,
-      location: "New York City"
+      location: "New York City",
     },
     {
       id: 3,
       author: "Emma Davis",
       avatar: "https://i.pravatar.cc/100?img=5",
       time: "6h",
-      content: "Cooking has become my new passion during weekends. Today's creation: homemade pasta with garden-fresh herbs! 🍝",
-      image: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop",
+      content:
+        "Cooking has become my new passion during weekends. Today's creation: homemade pasta with garden-fresh herbs! 🍝",
+      image:
+        "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop",
       likes: 156,
       comments: 32,
       shares: 18,
-      liked: false
-    }
+      liked: false,
+    },
   ]);
 
   const [stories] = useState<Story[]>([
-    { id: 1, name: "Your Story", avatar: "https://i.pravatar.cc/80?img=0", viewed: false },
-    { id: 2, name: "Alex", avatar: "https://i.pravatar.cc/80?img=2", viewed: false },
-    { id: 3, name: "Jordan", avatar: "https://i.pravatar.cc/80?img=4", viewed: true },
-    { id: 4, name: "Taylor", avatar: "https://i.pravatar.cc/80?img=6", viewed: false },
-    { id: 5, name: "Casey", avatar: "https://i.pravatar.cc/80?img=8", viewed: true },
-    { id: 6, name: "Morgan", avatar: "https://i.pravatar.cc/80?img=10", viewed: false }
+    {
+      id: 1,
+      name: "Your Story",
+      avatar: "https://i.pravatar.cc/80?img=0",
+      viewed: false,
+    },
+    {
+      id: 2,
+      name: "Alex",
+      avatar: "https://i.pravatar.cc/80?img=2",
+      viewed: false,
+    },
+    {
+      id: 3,
+      name: "Jordan",
+      avatar: "https://i.pravatar.cc/80?img=4",
+      viewed: true,
+    },
+    {
+      id: 4,
+      name: "Taylor",
+      avatar: "https://i.pravatar.cc/80?img=6",
+      viewed: false,
+    },
+    {
+      id: 5,
+      name: "Casey",
+      avatar: "https://i.pravatar.cc/80?img=8",
+      viewed: true,
+    },
+    {
+      id: 6,
+      name: "Morgan",
+      avatar: "https://i.pravatar.cc/80?img=10",
+      viewed: false,
+    },
   ]);
 
   const [newPost, setNewPost] = useState("");
   const [showNotifications, setShowNotifications] = useState(false);
 
   const handleLike = (postId: number) => {
-    setPosts(posts.map(post =>
-      post.id === postId
-        ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
-        : post
-    ));
+    setPosts(
+      posts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              liked: !post.liked,
+              likes: post.liked ? post.likes - 1 : post.likes + 1,
+            }
+          : post
+      )
+    );
   };
 
   const handlePostSubmit = () => {
@@ -122,7 +164,7 @@ function App() {
         likes: 0,
         comments: 0,
         shares: 0,
-        liked: false
+        liked: false,
       };
       setPosts([post, ...posts]);
       setNewPost("");
@@ -150,8 +192,19 @@ function App() {
           <div className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl shadow-sm border border-gray-200">
             <div className="flex space-x-4 overflow-x-auto pb-2">
               {stories.map((story) => (
-                <div key={story.id} className="flex flex-col items-center space-y-2 min-w-max cursor-pointer group">
-                  <div className={`relative ${story.id === 1 ? 'bg-gradient-to-tr from-blue-500 to-purple-600' : story.viewed ? 'bg-gray-300' : 'bg-gradient-to-tr from-pink-500 to-orange-500'} p-0.5 rounded-full group-hover:scale-105 transition-transform`}>
+                <div
+                  key={story.id}
+                  className="flex flex-col items-center space-y-2 min-w-max cursor-pointer group"
+                >
+                  <div
+                    className={`relative ${
+                      story.id === 1
+                        ? "bg-gradient-to-tr from-blue-500 to-purple-600"
+                        : story.viewed
+                        ? "bg-gray-300"
+                        : "bg-gradient-to-tr from-pink-500 to-orange-500"
+                    } p-0.5 rounded-full group-hover:scale-105 transition-transform`}
+                  >
                     <img
                       src={story.avatar}
                       alt={story.name}
@@ -174,14 +227,17 @@ function App() {
           {/* Post Creation */}
           <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-200">
             <div className="flex space-x-4">
-              <img src="https://i.pravatar.cc/50?img=0" className="h-12 w-12 rounded-full border-2 border-blue-500" />
+              <img
+                src="https://i.pravatar.cc/50?img=0"
+                className="h-12 w-12 rounded-full border-2 border-blue-500"
+              />
               <div className="flex-1">
                 <textarea
                   value={newPost}
                   onChange={(e) => setNewPost(e.target.value)}
                   placeholder="What's on your mind?"
                   className="w-full p-3 bg-gray-50 border-0 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-                  rows="3"
+                  rows={3}
                 />
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex space-x-4">
@@ -213,12 +269,19 @@ function App() {
 
           {/* Posts Feed */}
           {posts.map((post) => (
-            <article key={post.id} className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <article
+              key={post.id}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+            >
               {/* Post Header */}
               <div className="p-6 pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <img src={post.avatar} alt={post.author} className="h-12 w-12 rounded-full border-2 border-transparent hover:border-blue-500 transition-colors cursor-pointer" />
+                    <img
+                      src={post.avatar}
+                      alt={post.author}
+                      className="h-12 w-12 rounded-full border-2 border-transparent hover:border-blue-500 transition-colors cursor-pointer"
+                    />
                     <div>
                       <h3 className="font-semibold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors">
                         {post.author}
@@ -280,12 +343,16 @@ function App() {
                 <div className="flex items-center justify-around">
                   <button
                     onClick={() => handleLike(post.id)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${post.liked
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-                      }`}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${
+                      post.liked
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                    }`}
                   >
-                    <ThumbsUp size={18} className={post.liked ? 'fill-current' : ''} />
+                    <ThumbsUp
+                      size={18}
+                      className={post.liked ? "fill-current" : ""}
+                    />
                     <span className="font-medium">Like</span>
                   </button>
                   <button className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all">
@@ -308,11 +375,16 @@ function App() {
           <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-gray-900">Online Friends</h3>
-              <span className="text-sm text-green-500 font-medium">8 online</span>
+              <span className="text-sm text-green-500 font-medium">
+                8 online
+              </span>
             </div>
             <div className="space-y-3">
               {[1, 2, 3, 4, 5].map((friend) => (
-                <div key={friend} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors">
+                <div
+                  key={friend}
+                  className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
+                >
                   <div className="relative">
                     <img
                       src={`https://i.pravatar.cc/40?img=${friend + 15}`}
@@ -325,7 +397,10 @@ function App() {
                     <p className="font-medium text-gray-900">Friend {friend}</p>
                     <p className="text-xs text-gray-500">Active now</p>
                   </div>
-                  <MessageCircle size={16} className="text-gray-400 hover:text-blue-500 transition-colors" />
+                  <MessageCircle
+                    size={16}
+                    className="text-gray-400 hover:text-blue-500 transition-colors"
+                  />
                 </div>
               ))}
             </div>
@@ -342,13 +417,24 @@ function App() {
             </div>
             <div className="space-y-3">
               <div className="p-3 bg-orange-50 rounded-lg">
-                <p className="font-medium text-gray-900 text-sm">Photography Workshop</p>
+                <p className="font-medium text-gray-900 text-sm">
+                  Photography Workshop
+                </p>
                 <p className="text-xs text-gray-600 mt-1">Tomorrow, 2:00 PM</p>
                 <div className="flex items-center mt-2">
                   <div className="flex -space-x-2">
-                    <img src="https://i.pravatar.cc/20?img=30" className="h-5 w-5 rounded-full border border-white" />
-                    <img src="https://i.pravatar.cc/20?img=31" className="h-5 w-5 rounded-full border border-white" />
-                    <img src="https://i.pravatar.cc/20?img=32" className="h-5 w-5 rounded-full border border-white" />
+                    <img
+                      src="https://i.pravatar.cc/20?img=30"
+                      className="h-5 w-5 rounded-full border border-white"
+                    />
+                    <img
+                      src="https://i.pravatar.cc/20?img=31"
+                      className="h-5 w-5 rounded-full border border-white"
+                    />
+                    <img
+                      src="https://i.pravatar.cc/20?img=32"
+                      className="h-5 w-5 rounded-full border border-white"
+                    />
                   </div>
                   <span className="text-xs text-gray-600 ml-2">12 going</span>
                 </div>
@@ -358,8 +444,14 @@ function App() {
                 <p className="text-xs text-gray-600 mt-1">Friday, 6:00 PM</p>
                 <div className="flex items-center mt-2">
                   <div className="flex -space-x-2">
-                    <img src="https://i.pravatar.cc/20?img=33" className="h-5 w-5 rounded-full border border-white" />
-                    <img src="https://i.pravatar.cc/20?img=34" className="h-5 w-5 rounded-full border border-white" />
+                    <img
+                      src="https://i.pravatar.cc/20?img=33"
+                      className="h-5 w-5 rounded-full border border-white"
+                    />
+                    <img
+                      src="https://i.pravatar.cc/20?img=34"
+                      className="h-5 w-5 rounded-full border border-white"
+                    />
                   </div>
                   <span className="text-xs text-gray-600 ml-2">24 going</span>
                 </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Users, Bookmark, Bell, Settings, Menu, X } from "lucide-react";
+import { Search, Users, Bookmark, Bell, Settings, Menu, X, ChartBarIcon, MessageCircle } from "lucide-react";
 
 const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -35,6 +35,10 @@ const Header = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
+          <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-700 transition-colors">
+            <MessageCircle size={20} />
+            <span className="font-medium">Messenger</span>
+          </button>
           <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-700 transition-colors">
             <Users size={20} />
             <span className="font-medium">Friends</span>
